@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask
 import ddg3
 
 app = Flask('app')
@@ -39,8 +39,9 @@ def search(text):
 def index():
   return 'The Turn Context API endpoint is at /context'
 
-@app.route('/context')
+@app.route('/context', methods=["POST"])
 def context():
+    from flask import request
     json = request.json
     if json.get("handshake", False):
         return {
